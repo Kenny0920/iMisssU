@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForTheOneThatIDeeplyLovedAndHurt</title>
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="菲道爾 Firdhaus  能遇見就很不錯了  歌詞 .mp3" type="audio/mpeg">
+    </audio>
+
+    
+    <div class="grid-bg" id="gridBg"></div>
+
+    <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope" id="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-back"></div>
+            <div class="light-orb" id="lightOrb"></div>
+        </div>
+        <button class="open-button" id="openButton">點擊開啟</button>
+    </div>
+
+    <div class="sticky-note-container hidden" id="stickyNoteContainer">
+        <div class="sticky-note" id="note">
+            <p id="noteText"></p>
+            <p id="subNoteText" class="sub-note hidden"></p>
+            <span class="tap-hint">TAP ME</span>
+        </div>
+        <div class="lyrics-container" id="lyricsContainer">
+            <p id="currentLyric"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
