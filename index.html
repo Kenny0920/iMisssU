@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ForTheOneThatIDeeplyLovedAndHurt</title>
-    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;700&family=Yellowtail&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,10 +16,28 @@
     
     <div class="grid-bg" id="gridBg"></div>
 
+    <div id="moon" class="moon-hidden"></div>
+
+    <div id="sun" class="sun-hidden"></div>
+
+    <div id="timeCounter" class="time-counter">
+        <div class="time-label">如果你還在...今天會是第</div>
+        <div id="timeDisplay">
+            <span id="days">0</span>天 
+            <span id="hours">0</span>小時 
+            <span id="minutes">0</span>分 
+            <span id="seconds">0</span>秒
+        </div>
+    </div>
     <div class="envelope-wrapper" id="envelopeWrapper">
         <div class="envelope" id="envelope">
             <div class="envelope-flap"></div>
-            <div class="envelope-back"></div>
+            <div class="envelope-back">
+                <div class="envelope-label">
+                    <span class="cursive-en">Dear</span>
+                    <span class="elegant-zh">家妤</span>
+                </div>
+            </div>
             <div class="light-orb" id="lightOrb"></div>
         </div>
         <button class="open-button" id="openButton">點擊開啟</button>

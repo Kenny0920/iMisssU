@@ -227,11 +227,13 @@ body, html {
     background: linear-gradient(45deg, #333333, #666666), 1s ease;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    
-    /* 核心：透明度過渡 */
-    opacity: 1;
-    transition: opacity 0.6s ease;  /* 0.6秒的淡入淡出 */
-    margin: 0;
+}
+.fade-out {
+    opacity: 0 !important;
+}
+@keyframes cursorBlink {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
 }
 
 /* 用於切換時的隱藏狀態 */
@@ -260,4 +262,188 @@ body, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+
+/* 定義心跳跳動動畫 */
+/* 定義跳動一次並留存的動畫 */
+@keyframes lyricPopOnce {
+    0% { 
+        transform: scale(1); 
+        filter: brightness(1);
+    }
+    50% { 
+        transform: scale(1.25); /* 瞬間放大到 1.25 倍作為視覺衝擊 */
+        filter: brightness(1.2);
+    }
+    100% { 
+        transform: scale(1.2); /* 最後固定在 1.2 倍，比平常稍大 */
+        filter: brightness(1.1);
+    }
+}
+
+/* 修改強調標籤樣式 */
+.lyric-highlight {
+    color: #ff5252;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: baseline;
+    text-shadow: 0 0 8px rgba(255, 82, 82, 0.3);
+    
+    /* 核心設定：只播放一次，播放完畢後停在最後一幀 (forwards) */
+    animation: lyricPopOnce 0.8s ease-out forwards;
+    
+    /* 增加平滑感 */
+    transition: color 0.5s ease;
+}
+
+/* 小星星 */
+/* 修改後的流星樣式 */
+.star {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.8); /* 提高不透明度 */
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1; /* 確保在格子背景之上，但在信封之下 */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* 增加發光感 */
+    animation: twinkle var(--duration) infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%, 100% { 
+        opacity: 0.1; 
+        transform: translateY(0) scale(1); 
+    }
+    50% { 
+        opacity: 0.6; 
+        transform: translateY(-30px) scale(1.2); /* 稍微向上飄動 */
+    }
+}
+
+/* 月亮樣式 */
+/* 修改後的月亮樣式：定位於右上角 */
+#moon {
+    position: fixed;
+    top: -200px; /* 初始在螢幕上方外 */
+    right: -200px; /* 初始在螢幕右方外 */
+    width: 120px; /* 縮小一點點，放在角落更精緻 */
+    height: 120px;
+    background: radial-gradient(circle at 30% 30%, #fefefe, #fff9c4 60%, #e0e0e0 100%);
+    border-radius: 50%;
+    /* 強化的發光效果 */
+    box-shadow: 0 0 60px 25px rgba(255, 253, 224, 0.3), inset -5px -5px 15px rgba(0,0,0,0.05);
+    z-index: 5; /* 在格子之上，底片與便利貼之下 */
+    transition: all 5s cubic-bezier(0.39, 0.575, 0.565, 1); /* 更緩慢優雅的升起 */
+    opacity: 0;
+}
+
+/* 月亮升起後的右上角位置 */
+#moon.moon-visible {
+    top: 50px;
+    right: 50px;
+    opacity: 1;
+}
+
+/* 月亮落下狀態 */
+#moon.moon-hidden {
+    top: -200px;
+    right: -200px;
+    opacity: 0;
+}
+
+/* 信封封面文字樣式 */
+.envelope-label {
+    position: absolute;
+    top: 60%; /* 位於信封中下方 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    z-index: 2; /* 位於 back 之上，但 flap 之下 (flap 打開後會完全露出來) */
+    pointer-events: none;
+}
+
+.cursive-en {
+    font-family: 'Yellowtail', cursive;
+    font-size: 2.2rem;
+    color: #333 /* 深紅色，更有手寫信的感覺 */
+}
+
+.elegant-zh {
+    font-family: 'LXGW WenKai TC', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    letter-spacing: 5px;
+}
+
+/* 確保信封背部可以容納文字 */
+.envelope-back {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #fce4ec; /* 與 envelope 背景色一致 */
+    border-radius: 0 0 10px 10px;
+}
+
+#sun {
+    position: fixed;
+    top: -250px; /* 初始藏更深一點 */
+    left: -250px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle at 30% 30%, #fffde7, #ffeb3b 50%, #f9a825 100%);
+    border-radius: 50%;
+    /* 讓發光範圍加大，這樣更明顯 */
+    box-shadow: 0 0 80px 30px rgba(255, 235, 59, 0.4), 0 0 150px 60px rgba(255, 152, 0, 0.2);
+    
+    /* 重要：z-index 設為 10，確保它在背景之上，但在便利貼(3000)之下 */
+    z-index: 10; 
+    transition: all 6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 0;
+    pointer-events: none; /* 避免擋住點擊 */
+}
+
+/* 確保這個 class 有被正確套用 */
+#sun.sun-visible {
+    top: 60px;
+    left: 60px;
+    opacity: 1;
+}
+
+.time-counter {
+    position: fixed;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4000; /* 確保在所有元素之上 */
+    text-align: center;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 8px 25px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    pointer-events: none;
+    min-width: 250px;
+}
+
+.time-label {
+    font-size: 0.75rem;
+    color: #888;
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+#timeDisplay {
+    font-family: 'LXGW WenKai TC', sans-serif;
+    font-size: 1.1rem;
+    color: #d32f2f; /* 經典深紅色 */
+    letter-spacing: 1px;
+}
+
+#timeDisplay span {
+    font-weight: 700;
+    margin: 0 2px;
 }
